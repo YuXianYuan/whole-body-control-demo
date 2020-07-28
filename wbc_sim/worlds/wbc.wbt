@@ -1,0 +1,209 @@
+#VRML_SIM R2019b utf8
+WorldInfo {
+  basicTimeStep 10
+}
+Viewpoint {
+  orientation -0.9999900603800785 -0.003972438845974762 0.0020245667837518423 1.5943666093636428
+  position -0.16759713917867075 8.556258172849112 -0.1309947529492496
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 3 4.5
+  wallHeight 0.01
+}
+Robot {
+  translation -1.33 0.05 0
+  children [
+    Solid {
+      children [
+        DEF slideway Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+            roughness 1
+          }
+          geometry Box {
+            size 0.1 0.1 4
+          }
+        }
+      ]
+    }
+    SliderJoint {
+      jointParameters JointParameters {
+        axis 0 0 -1
+      }
+      device [
+        PositionSensor {
+          name "m0 position sensor"
+        }
+        LinearMotor {
+          name "m0 linear motor"
+          consumptionFactor 0
+          controlPID 10 0.1 0.5
+          maxVelocity 1000
+          maxForce 1000
+        }
+      ]
+      endPoint Solid {
+        rotation 0 0 -0.9999999999992287 0
+        children [
+          DEF block Shape {
+            appearance PBRAppearance {
+              baseColor 1 0 0
+              roughness 1
+              metalness 0
+            }
+            geometry Box {
+              size 0.15 0.12 0.15
+            }
+          }
+          HingeJoint {
+            jointParameters HingeJointParameters {
+              position 1.047
+              axis 0 1 0
+            }
+            device [
+              PositionSensor {
+                name "m1 position sensor"
+              }
+              RotationalMotor {
+                name "m1 rotational motor"
+                maxVelocity 1000
+                maxTorque 1000
+              }
+            ]
+            endPoint Solid {
+              translation 0.2500855372985351 0 -0.4329633056439114
+              rotation 0 0.9999999999999999 0 1.0469999999999997
+              children [
+                DEF link1 Transform {
+                  rotation 0 0 1 1.5707996938995747
+                  children [
+                    Shape {
+                      appearance PBRAppearance {
+                        baseColor 0 1 0
+                        roughness 1
+                        metalness 0
+                      }
+                      geometry Capsule {
+                        height 1
+                        radius 0.03
+                      }
+                    }
+                  ]
+                }
+                Transform {
+                  translation 0.5 0 0
+                  rotation 0 0 1 0
+                  children [
+                    HingeJoint {
+                      jointParameters HingeJointParameters {
+                        position -2.094
+                        axis 0 1 0
+                      }
+                      device [
+                        PositionSensor {
+                          name "m2 position sensor"
+                        }
+                        RotationalMotor {
+                          name "m2 rotational motor"
+                          maxVelocity 1000
+                          maxTorque 1000
+                        }
+                      ]
+                      endPoint Solid {
+                        translation -0.24982889613641213 0 0.43311144369002974
+                        rotation 0 -1 0 2.094
+                        children [
+                          DEF link2 Transform {
+                            rotation 0 0 1 1.5707996938995747
+                            children [
+                              Shape {
+                                appearance PBRAppearance {
+                                  baseColor 1 0 0.5
+                                  roughness 1
+                                  metalness 0
+                                }
+                                geometry Capsule {
+                                  height 1
+                                  radius 0.03
+                                }
+                              }
+                            ]
+                          }
+                          Transform {
+                            translation 0.5 0 0
+                            children [
+                              HingeJoint {
+                                jointParameters HingeJointParameters {
+                                  position 1.047
+                                  axis 0 1 0
+                                }
+                                device [
+                                  PositionSensor {
+                                    name "m3 position sensor"
+                                  }
+                                  RotationalMotor {
+                                    name "m3 rotational motor"
+                                    maxVelocity 1000
+                                    maxTorque 1000
+                                  }
+                                ]
+                                endPoint Solid {
+                                  translation 0.2500855372985351 0 -0.4329633056439114
+                                  rotation 0 0.9999999999999999 0 1.0469999999999997
+                                  children [
+                                    DEF link3 Transform {
+                                      rotation 0 0 1 1.5707996938995747
+                                      children [
+                                        Shape {
+                                          appearance PBRAppearance {
+                                            baseColor 0 1 1
+                                            roughness 1
+                                            metalness 0
+                                          }
+                                          geometry Capsule {
+                                            height 1
+                                            radius 0.03
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                  boundingObject USE link3
+                                  physics Physics {
+                                    density 1
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                        boundingObject USE link2
+                        physics Physics {
+                          density 1
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+              boundingObject USE link1
+              physics Physics {
+                density 1
+              }
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE block
+        physics Physics {
+        }
+      }
+    }
+  ]
+  boundingObject USE slideway
+  controller "controller2"
+}
